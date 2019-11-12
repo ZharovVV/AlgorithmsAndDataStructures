@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Sorting {
     /**
      * Сортировка вставками.
@@ -80,5 +82,65 @@ public class Sorting {
         System.out.println("Сортировка методом выбора: ");
         System.out.println(endTime - startTime + " ms");
         return array;
+    }
+
+
+    /**
+     * Слияние отсортированных массивов.
+     *
+     * @param a - отсортированный по возрастанию массив.
+     * @param b - другой отсортированный по возрастанию массив.
+     * @return c - массив, полученный слиянием a и b.
+     */
+    public static int[] merge(int[] a, int[] b) {
+        int[] c = new int[a.length + b.length];
+        int i = 0;  // индекс в массиве a
+        int k = 0;  // индекс в массиве b
+        int n = 0;  // индекс в массиве c
+        while (i < a.length && k < b.length) {  // до тех пор пока полностью не пройден один из входных массивов
+            if (a[i] <= b[k]) { // если первый непройденный элемент из a >= b
+                c[n] = a[i];    // кладем этот элемент в массив c
+                i++;    // увеличиваем индекс в a
+                n++;    // увеличиваем индекс в c
+            } else {
+                c[n] = b[k];
+                k++;
+                n++;
+            }
+        }
+        while (i < a.length) {
+            c[n] = a[i];    // кладем этот элемент в массив c
+            i++;    // увеличиваем индекс в a
+            n++;    // увеличиваем индекс в c
+        }
+        while (k < b.length) {
+            c[n] = b[k];
+            k++;
+            n++;
+        }
+        return c;
+    }
+
+
+    /**
+     * Сортировка слиянием.
+     * O(nlog(n)).
+     * @param a - сортируемый массив.
+     * @return a - отсортированный массив.
+     */
+    public static int[] mergeSort(int[] a) {
+        if (a.length <= 1) {
+            return a;
+        }
+        int middle = a.length / 2;
+        int[] l = Arrays.copyOfRange(a, 0, middle);
+        int[] r = Arrays.copyOfRange(a, middle, a.length);
+        mergeSort(l);
+        mergeSort(r);
+        int[] c = merge(l, r);
+        for (int i = 0; i < a.length; ++i) {
+            a[i] = c[i];
+        }
+        return a;
     }
 }
