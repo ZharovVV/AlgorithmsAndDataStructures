@@ -8,10 +8,14 @@ public class YandexJob {
     public static String function(int[] a) {
         StringBuilder sb = new StringBuilder();
         Arrays.sort(a);
-        sb.append(a[0]);    // присоединяем первый элемент массива
+        int start = a[0];
+        sb.append(start);    // присоединяем первый элемент массива
         for (int i = 0; i < a.length - 1; ++i) {
             if (a[i] + 1 != a[i + 1]) { // Если следующий элемент больше текущего не на 1
-                sb.append("-").append(a[i]);    // присоединяем "-(текущий элемент)"
+                if (start != a[i]) {
+                    sb.append("-").append(a[i]);    // присоединяем "-(текущий элемент)"
+                }
+                start = a[i + 1];
                 sb.append(", ").append(a[i + 1]);   // присоединяем ", (следующий элемент)"
             } else if (i + 1 == a.length - 1) {     // ... и если он последний
                 sb.append("-").append(a[i + 1]);    // присоединяем следующий элемент
