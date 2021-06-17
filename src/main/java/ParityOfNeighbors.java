@@ -19,22 +19,23 @@ import java.util.Scanner;
 public class ParityOfNeighbors {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int arraysLength = scanner.nextInt();
-        int numberOfEven = 0;   // Число четных чисел в массиве
-        int numberOfOdd = 0;    // Число нечетных чисел в массиве
-        int[] array = new int[arraysLength];
+        try (Scanner scanner = new Scanner(System.in)) {
+            int arraysLength = scanner.nextInt();
+            int numberOfEven = 0;   // Число четных чисел в массиве
+            int numberOfOdd = 0;    // Число нечетных чисел в массиве
+            int[] array = new int[arraysLength];
 
-        for (int i = 0; i < arraysLength; ++i) {
-            int number = scanner.nextInt();
-            array[i] = number;
-            if (number % 2 == 0) {
-                numberOfEven++;
-            } else {
-                numberOfOdd++;
+            for (int i = 0; i < arraysLength; ++i) {
+                int number = scanner.nextInt();
+                array[i] = number;
+                if (number % 2 == 0) {
+                    numberOfEven++;
+                } else {
+                    numberOfOdd++;
+                }
             }
+            arrayPermutation(array, numberOfEven, numberOfOdd);
         }
-        arrayPermutation(array, numberOfEven, numberOfOdd);
     }
 
     private static void arrayPermutation(int[] array, int numberOfEven, int numberOfOdd) {
